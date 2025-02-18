@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+</head>
+<body>
+    <h1>Chatbot com Deepseek-r1</h1>
+    <div id="chat-container">
+        <div id="messages"></div>
+        <input id="user-input" type="text" placeholder="Digite sua mensagem..." />
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById("user-input").value;
+            const response = await fetch('/chat', { // API REST para comunicar com o Flask
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userInput })
+            });
+
+            const result = await response.json();
+            const chatContainer = document.getElementById("messages");
+
+            chatContainer.innerHTML += `<p><strong>Você:</strong> ${userInput}</p>`;
+            chatContainer.innerHTML += `<p><strong>Bot:</strong> ${result.response}</p>`;
+            document.getElementById("user-input").value = ''; // Resetar campo de entrada
+        }
+    </script>
+</body>
+</html>
