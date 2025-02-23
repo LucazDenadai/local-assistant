@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 client = OpenAI(
     base_url="http://localhost:11434/v1",
-    api_key="xxx"  # substitua xxx por sua chave
+    api_key=""  # substitua xxx por sua chave
 )
 
 
